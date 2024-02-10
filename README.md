@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
     default: true,
     prefix: false,
     scopes: true,
-    suffix: false,    
+    suffix: false,
     update_methods: true,
     validate: true
 end
@@ -112,6 +112,27 @@ user.archived_address?
 # update methods
 user.active_address!
 user.archived_address!
+```
+
+Validation error can be customized using [i18n](https://guides.rubyonrails.org/i18n.html#error-message-scopes)
+
+```ruby
+class User < ActiveRecord::Base
+  str_enum :status, [:active, :archived]
+end
+```
+
+```yaml
+# config/locales/en.yml
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            status:
+              blank: is required
+              inclusion: is not valid
 ```
 
 ## History
